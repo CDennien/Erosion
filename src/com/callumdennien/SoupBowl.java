@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class SoupBowl {
-    private static final String url = "https://www.reddit.com/r/wallpapers/top/";
+    private static final String url = "https://www.reddit.com/r/wallpapers/hot/";
 
-    public ArrayList<String> getSoupToppings() throws IOException {
+    public String getSoupTopping() throws IOException {
         Document doc = Jsoup.connect(url).get();
         Elements elements = doc.getElementsByClass("SQnoC3ObvgnGjWt90zD9Z");
         ArrayList<String> posts = new ArrayList<>();
@@ -21,6 +21,23 @@ public class SoupBowl {
             posts.add(post);
         }
 
-        return posts;
+        String postURL = getSoupImage(posts);
+
+        return postURL;
+    }
+
+    private String getSoupImage(ArrayList<String> posts) throws IOException {
+        int random = (int) (Math.random() * (posts.size() - 1 + 1) + 1);
+
+        Document doc = Jsoup.connect(posts.get(random)).get();
+        Elements elements = doc.getElementsByClass("may-blank");
+
+        for (Element element : elements) {
+            if (element.attr("href").contains("https://i.redd.it/")) {
+                return element.attr("href");
+            }
+        }
+
+        return null;
     }
 }

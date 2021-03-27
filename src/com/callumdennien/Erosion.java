@@ -7,8 +7,6 @@ public class Erosion {
     private static final SoupBowl soupBowl = new SoupBowl();
 
     public static void main(String[] args) throws IOException {
-        ArrayList<String> posts = soupBowl.getSoupToppings();
-
-
+        String postURL = soupBowl.getSoupTopping();
     }
 }
