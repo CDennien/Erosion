@@ -1,6 +1,5 @@
 package com.callumdennien;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SoupBowl {
     private static final String url = "https://www.reddit.com/r/wallpapers/top/";
@@ -46,9 +46,10 @@ public class SoupBowl {
     }
 
     private String getSoupImage(ArrayList<String> posts) throws IOException {
-        int random = (int) (Math.random() * (posts.size() - 2 + 1) + 1);
+        Random random = new Random();
+        int postIndex = random.nextInt(posts.size());
 
-        Document doc = Jsoup.connect(posts.get(random)).get();
+        Document doc = Jsoup.connect(posts.get(postIndex)).get();
         Elements elements = doc.getElementsByClass("may-blank");
 
         for (Element element : elements) {

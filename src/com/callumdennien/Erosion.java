@@ -2,7 +2,9 @@ package com.callumdennien;
 
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.WinDef.UINT_PTR;
-import com.sun.jna.win32.*;
+import com.sun.jna.win32.StdCallLibrary;
+import com.sun.jna.win32.W32APIFunctionMapper;
+import com.sun.jna.win32.W32APITypeMapper;
 
 import java.util.HashMap;
 
