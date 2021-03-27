@@ -1,8 +1,14 @@
 package com.callumdennien;
 
-public class Erosion {
+import java.io.IOException;
+import java.util.ArrayList;
 
-    public static void main(String[] args) {
+public class Erosion {
+    private static final SoupBowl soupBowl = new SoupBowl();
+
+    public static void main(String[] args) throws IOException {
+        ArrayList<String> posts = soupBowl.getSoupToppings();
+
 
     }
 }
