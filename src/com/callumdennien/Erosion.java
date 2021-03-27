@@ -7,47 +7,42 @@ import com.sun.jna.win32.W32APIFunctionMapper;
 import com.sun.jna.win32.W32APITypeMapper;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Erosion {
     private static final SoupBowl soupBowl = new SoupBowl();
-    private static final String path = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\Erosion\\erosion_background.jpg";
+    private static final String path = "C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Roaming\\Erosion\\erosion_background.jpg";
 
-    public static void main(String[] args) throws Throwable {
-        String postURL = soupBowl.getSoupTopping();
-        soupBowl.spillSoup(postURL, path);
-
-        SPI.INSTANCE.SystemParametersInfo(new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), new UINT_PTR(0), path, new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE));
-
+    public static void main(String[] args) {
         final TrayIcon trayIcon;
 
         if (SystemTray.isSupported()) {
             SystemTray tray = SystemTray.getSystemTray();
-            Image image = Toolkit.getDefaultToolkit().getImage("C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\Erosion\\logo.png");
-
-            ActionListener exitListener = e -> {
-                System.exit(0);
-            };
+            Image image = Toolkit.getDefaultToolkit().getImage("C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Roaming\\Erosion\\logo.png");
 
             ActionListener changeListener = e -> {
-                System.exit(0);
+                try {
+                    changeBackground();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             };
 
-            MenuItem defaultItem = new MenuItem("Exit");
-            defaultItem.addActionListener(exitListener);
-            MenuItem change = new MenuItem("Change");
-            change.addActionListener(changeListener);
+            ActionListener exitListener = e -> System.exit(0);
+
+            MenuItem exitItem = new MenuItem("Exit");
+            exitItem.addActionListener(exitListener);
+            MenuItem changeItem = new MenuItem("Change Wallpaper");
+            changeItem.addActionListener(changeListener);
 
             PopupMenu popup = new PopupMenu();
-            popup.add(change);
-            popup.add(defaultItem);
+            popup.add(changeItem);
+            popup.add(exitItem);
 
             try {
-                trayIcon = new TrayIcon(image, "Erosion", popup);
+                trayIcon = new TrayIcon(image, "Erosion Wallpapers", popup);
                 trayIcon.setImageAutoSize(true);
                 tray.add(trayIcon);
 
@@ -56,6 +51,13 @@ public class Erosion {
             }
 
         }
+    }
+
+    private static void changeBackground() throws IOException {
+        String postURL = soupBowl.getSoupTopping();
+        soupBowl.spillSoup(postURL, path);
+
+        SPI.INSTANCE.SystemParametersInfo(new UINT_PTR(SPI.SPI_SETDESKWALLPAPER), new UINT_PTR(0), path, new UINT_PTR(SPI.SPIF_UPDATEINIFILE | SPI.SPIF_SENDWININICHANGE));
     }
 
     public interface SPI extends StdCallLibrary {
