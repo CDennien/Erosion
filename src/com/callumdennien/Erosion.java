@@ -52,7 +52,7 @@ public class Erosion {
                 }
 
                 JLabel versionLabel = new JLabel("Version: 1.0.1  ");
-                JLabel redditLabel = new JLabel("Reddit: r/wallpapers");
+                JLabel redditLabel = new JLabel("Reddit: r/wallpaper");
                 JLabel devLabel = new JLabel("Developer: Callum Dennien");
 
                 JPanel textPanel = new JPanel();

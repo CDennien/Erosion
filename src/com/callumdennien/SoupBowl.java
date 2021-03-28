@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SoupBowl {
-    private static final String url = "https://www.reddit.com/r/wallpapers/top/";
+    private static final String url = "https://www.reddit.com/r/wallpaper/top/";
 
     public String getSoupTopping() throws IOException {
         Document doc = Jsoup.connect(url).get();
