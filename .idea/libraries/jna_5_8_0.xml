@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jna-5.8.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Documents/Libraries/jna-5.8.0.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Roaming/Erosion/Libraries/jna-5.8.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
